@@ -1,0 +1,29 @@
+plugins {
+  id "java"
+  id("com.github.johnrengelman.shadow") version "6.0.0"
+}
+
+apply from: "$rootDir/gradle/shadow.gradle"
+
+def relocatePackages = ext.relocatePackages
+
+dependencies {
+  //implementation platform('software.amazon.awssdk:bom:2.15.0')
+  //implementation 'software.amazon.awssdk:ec2:2.10.1'
+  //implementation 'software.amazon.awssdk:eks'
+  implementation("io.opentelemetry:opentelemetry-sdk-extension-aws:1.3.0")
+  //compileOnly("io.opentelemetry:opentelemetry-semconv:1.3.0-alpha")
+  compileOnly("io.opentelemetry:opentelemetry-sdk:${versions.opentelemetry}")
+  compileOnly("io.opentelemetry:opentelemetry-sdk-extension-autoconfigure:${versions.opentelemetryAlpha}")
+  compileOnly("io.opentelemetry.javaagent:opentelemetry-javaagent-extension-api:${versions.opentelemetryJavaagentAlpha}")
+}
+
+tasks {
+  shadowJar {
+    mergeServiceFiles()
+
+    exclude("**/module-info.class")
+
+    relocatePackages(it)
+  }
+}
