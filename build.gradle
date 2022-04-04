@@ -1,4 +1,5 @@
 plugins {
+  id 'java'
   id 'maven-publish'
 }
 
@@ -31,11 +32,8 @@ subprojects {
       autoValueAnnotations: "com.google.auto.value:auto-value-annotations:${versions.autoValue}",
     ]
   }
-
+  
   repositories {
-    maven {
-      url = uri("https://oss.sonatype.org/content/repositories/snapshots")
-    }
     mavenCentral()
   }
 
