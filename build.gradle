@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.demo'
-version '1.0-SNAPSHOT'
+version '2.0-SNAPSHOT'
 
 subprojects {
   version = rootProject.version
@@ -32,6 +32,12 @@ subprojects {
       autoValueAnnotations: "com.google.auto.value:auto-value-annotations:${versions.autoValue}",
     ]
   }
+
+  ext {
+    MAVEN_GROUP_ID = "com.demo"
+    MAVEN_ARTIFACT_ID = "javaagent"
+    MAVEN_VERSION = "1.0-SNAPSHOT"
+  }
   
   repositories {
     mavenCentral()
@@ -46,18 +52,7 @@ subprojects {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
   }
 
-  publishing {
-    repositories {
-      maven {
-        name = "GitHubPackages"
-        url = "https://maven.pkg.github.com/DondekarShraddha/telemetry-demo"
-        credentials {
-          username = System.getenv("GITHUB_ACTOR")
-          password = System.getenv("GITHUB_TOKEN")
-        }
-      }
-    }
-  }
+
 
   tasks {
     test {
@@ -66,6 +61,26 @@ subprojects {
 
     compileJava {
       options.release.set(11)
+    }
+  }
+}
+
+publishing {
+  publications {
+    maven(MavenPublication) {
+      artifactId = 'opentelemetry-sdk1'
+      from components.java
+    }
+  }
+
+  repositories {
+    maven {
+      name = "GitHubPackages"
+      url = "https://maven.pkg.github.com/DondekarShraddha/telemetry-demo"
+      credentials {
+        username = System.getenv("GITHUB_ACTOR")
+        password = System.getenv("GITHUB_TOKEN")
+      }
     }
   }
 }
