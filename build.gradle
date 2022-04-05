@@ -79,7 +79,7 @@ publishing {
       url = "https://maven.pkg.github.com/DondekarShraddha/telemetry-demo"
       credentials {
         username = "DondekarShraddha"
-        password = "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"
+        password = "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"
       }
     }
   }
