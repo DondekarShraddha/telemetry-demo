@@ -78,8 +78,8 @@ publishing {
       name = "GitHubPackages"
       url = "https://maven.pkg.github.com/DondekarShraddha/telemetry-demo"
       credentials {
-        username = "DondekarShraddha"
-        password = "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"
+        username = System.getenv("GITHUB_ACTOR")
+        password = System.getenv("GITHUB_TOKEN")
       }
     }
   }
