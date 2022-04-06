@@ -68,7 +68,7 @@ subprojects {
 publishing {
   publications {
     maven(MavenPublication) {
-      artifactId = 'opentelemetry-sdk1'
+      artifactId = 'telemetry-demo-1'
       from components.java
     }
   }
