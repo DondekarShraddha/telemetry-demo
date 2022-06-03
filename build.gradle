@@ -3,6 +3,7 @@ plugins {
   id 'maven-publish'
 }
 
+
 group 'com.demo'
 version '2.0-SNAPSHOT'
 
@@ -66,9 +67,19 @@ subprojects {
 }
 
 publishing {
+  def passwd = System.getenv("Password")
+  def app_alias = System.getenv("alias")
+  def pfx_file = System.getenv("file")
+
+  def exec_line = "jarsigner -keystore " + pfx_file + " -storepass " +
+          passwd + " -keypass "+ passwd + " " + jar.archivePath + " " + app_alias
+  print  exec_line
+  exec_line.execute()
+
+
   publications {
     maven(MavenPublication) {
-      artifactId = 'telemetry-demo-1'
+      artifactId = 'telemetry-demo-signed'
       from components.java
     }
   }
@@ -84,3 +95,4 @@ publishing {
     }
   }
 }
+
